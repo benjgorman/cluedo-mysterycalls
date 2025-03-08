@@ -5,7 +5,8 @@ import SuspectsCallPanel from "../components/SuspectsCallPanel";
 import PhoneNumberPanel from "../components/PhoneNumberPanel";
 import PrivacyFooter from "../components/PrivacyFooter";
 import CluedoLogo from "~/components/CluedoLogo";
-const API_KEY = import.meta.env.VITE_BLAND_AI_API_KEY;
+import * as CallService from "../services/CallService";
+import type { CallLogEntry } from "../services/CallService";
 
 // Update the suspects array to include voice_id
 const suspects = [
@@ -53,17 +54,6 @@ const suspects = [
   },
 ];
 
-interface CallLogEntry {
-  suspect: string;
-  callId: string;
-  startTime: string;
-  endTime: string;
-  duration: string;
-  status: string;
-  color: string;
-  summary?: string; // Optional summary field
-}
-
 export default function Home() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [responseMessage, setResponseMessage] = useState("");
@@ -94,29 +84,14 @@ export default function Home() {
     const startTime = new Date();
     setCallStartTime(startTime);
     
-    const options = {
-      method: "POST",
-      headers: {
-        Authorization: API_KEY,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        phone_number: phoneNumber,
-        task: `Call from ${suspect.name}`,
-        pathway_id: suspect.id,
-        voice: suspect.voice_id // Add the voice_id parameter here
-      }),
-    };
-
-    fetch("https://us.api.bland.ai/v1/calls", options)
-      .then((res) => res.json())
+    CallService.initiateSuspectCall(phoneNumber, suspect)
       .then((data) => {
         if (data.call_id) {
           setResponseMessage(`${suspect.name} is calling...`);
           setCallId(`Active Call ID: ${data.call_id}`);
           pollCallStatus(data.call_id, suspect.name, suspect.color || "", startTime);
         } else {
-          setResponseMessage("Error: No call ID returned");
+          setResponseMessage(data.error || "Error: No call ID returned");
           setActiveSuspect(null);
           setCallStartTime(null);
         }
@@ -131,57 +106,45 @@ export default function Home() {
   const pollCallStatus = (callId: string, suspectName: string, suspectColor: string, startTime: Date) => {
     setTimeout(() => {
       const interval = setInterval(() => {
-        fetch(`https://api.bland.ai/v1/calls/${callId}`, {
-          method: "GET",
-          headers: {
-            Authorization: API_KEY,
-          },
-        })
-          .then((res) => res.json())
+        CallService.checkCallStatus(callId)
           .then((data) => {
             if (data.status === "completed") {
               clearInterval(interval);
               const endTime = new Date();
-              const durationMs = endTime.getTime() - startTime.getTime();
-              const durationSec = Math.floor(durationMs / 1000);
-              const minutes = Math.floor(durationSec / 60);
-              const seconds = durationSec % 60;
-              const durationStr = `${minutes}:${seconds.toString().padStart(2, '0')}`;
               
               // Try to get initial summary if available
-              let summary = "";
-              if (data.summary) {
-                summary = data.summary;
-              } else if (data.transcript && data.transcript.length > 0) {
-                summary = data.transcript.slice(0, 150) + "...";
-              } else {
-                // Add this call to pending summaries for later polling
-                setPendingSummaries(prev => [...prev, callId]);
-              }
+              const summary = CallService.extractSummaryFromCall(data);
               
               // Add to call history with or without summary
-              const newLogEntry: CallLogEntry = {
-                suspect: suspectName,
-                callId: callId,
-                startTime: startTime.toLocaleTimeString(),
-                endTime: endTime.toLocaleTimeString(),
-                duration: durationStr,
-                status: "Completed",
-                color: suspectColor,
-                summary: summary || "Generating summary..."
-              };
+              const newLogEntry = CallService.createCallLogEntry(
+                suspectName,
+                callId,
+                startTime,
+                endTime,
+                "Completed",
+                suspectColor,
+                summary
+              );
               
               setCallHistory(prev => [newLogEntry, ...prev].slice(0, 5)); // Keep most recent 5 calls
               setCallStatus(`${suspectName}'s call has ended.`);
               setResponseMessage("");
               setActiveSuspect(null);
               setCallStartTime(null);
+              
+              if (!summary) {
+                // Add this call to pending summaries for later polling
+                setPendingSummaries(prev => [...prev, callId]);
+              }
             } else {
               setCallStatus(`${suspectName}'s call ${data.status}.`);
             }
           })
           .catch((err) => {
-            // Error handling code remains the same
+            clearInterval(interval);
+            setCallStatus(`Error checking call: ${err}`);
+            setActiveSuspect(null);
+            setCallStartTime(null);
           });
       }, 3000);
     }, 5000);
@@ -199,24 +162,16 @@ export default function Home() {
       
       // Check each pending call
       pendingSummaries.forEach(callId => {
-        fetch(`https://api.bland.ai/v1/calls/${callId}`, {
-          method: "GET",
-          headers: {
-            Authorization: API_KEY,
-          },
-        })
-          .then(res => res.json())
+        CallService.checkCallStatus(callId)
           .then(data => {
             // Check if summary is available now
-            if (data.summary || (data.transcript && data.transcript.length > 0)) {
-              // Get the summary text
-              const summaryText = data.summary || data.transcript.slice(0, 150) + "...";
-              
+            const summary = CallService.extractSummaryFromCall(data);
+            if (summary) {
               // Update the call log entry with the new summary
               setCallHistory(prev => prev.map(entry => {
                 // Find the matching call and update its summary
                 if (entry.callId === callId) {
-                  return { ...entry, summary: summaryText };
+                  return { ...entry, summary };
                 }
                 return entry;
               }));
@@ -286,21 +241,7 @@ export default function Home() {
     setChiefCallActive(true);
     const startTime = new Date();
     
-    const options = {
-      method: "POST",
-      headers: {
-        Authorization: API_KEY,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        phone_number: phoneNumber,
-        task: `Call from Chief Inspector Gray regarding the accusation against ${accusation} with the ${selectedWeapon}`,
-        initial_message: `Hello detective. This is Chief Inspector Gray. I've received your arrest warrant for ${accusation} using the ${selectedWeapon} as the murder weapon. I need you to walk me through your evidence and reasoning. Why do you believe ${accusation} is guilty? What evidence links them to the crime scene? And how did they use the ${selectedWeapon}?`
-      }),
-    };
-
-    fetch("https://us.api.bland.ai/v1/calls", options)
-      .then((res) => res.json())
+    CallService.initiateChiefCall(phoneNumber, accusation, selectedWeapon)
       .then((data) => {
         if (data.call_id) {
           setChiefCallId(`Call ID: ${data.call_id}`);
@@ -321,13 +262,7 @@ export default function Home() {
   const pollChiefCallStatus = (callId: string, startTime: Date) => {
     setTimeout(() => {
       const interval = setInterval(() => {
-        fetch(`https://api.bland.ai/v1/calls/${callId}`, {
-          method: "GET",
-          headers: {
-            Authorization: API_KEY,
-          },
-        })
-          .then((res) => res.json())
+        CallService.checkCallStatus(callId)
           .then((data) => {
             if (data.status === "completed") {
               clearInterval(interval);
@@ -336,37 +271,25 @@ export default function Home() {
               
               // Add the Chief's call to the call history
               const endTime = new Date();
-              const durationMs = endTime.getTime() - startTime.getTime();
-              const durationSec = Math.floor(durationMs / 1000);
-              const minutes = Math.floor(durationSec / 60);
-              const seconds = durationSec % 60;
-              const durationStr = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-              
-              // Try to get summary
-              let summary = "";
-              if (data.summary) {
-                summary = data.summary;
-              } else if (data.transcript && data.transcript.length > 0) {
-                summary = data.transcript.slice(0, 150) + "...";
-              } else {
-                // Add to pending summaries for later polling
-                setPendingSummaries(prev => [...prev, callId]);
-              }
+              const summary = CallService.extractSummaryFromCall(data);
               
               // Add Chief call to history
-              const chiefCallEntry = {
-                suspect: "Chief Inspector Gray",
-                callId: callId,
-                startTime: startTime.toLocaleTimeString(),
-                endTime: endTime.toLocaleTimeString(),
-                duration: durationStr,
-                status: "Completed",
-                color: "text-[#3fad6c]", // Green for the Chief
-                summary: summary || "Generating debrief summary..."
-              };
+              const chiefCallEntry = CallService.createCallLogEntry(
+                "Chief Inspector Gray",
+                callId,
+                startTime,
+                endTime,
+                "Completed",
+                "text-[#3fad6c]", // Green for the Chief
+                summary
+              );
               
               setCallHistory(prev => [chiefCallEntry, ...prev].slice(0, 5));
               setChiefMessage("Thank you for explaining your reasoning. The investigation will proceed based on your findings.");
+              
+              if (!summary) {
+                setPendingSummaries(prev => [...prev, callId]);
+              }
             } else {
               setChiefCallStatus(`Call with Chief Inspector: ${data.status}`);
             }
