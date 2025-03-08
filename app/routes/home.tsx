@@ -7,50 +7,57 @@ import PrivacyFooter from "../components/PrivacyFooter";
 import CluedoLogo from "~/components/CluedoLogo";
 import * as CallService from "../services/CallService";
 import type { CallLogEntry } from "../services/CallService";
+import { getPathwayId, getVoiceId, getCharacterInstruction } from "../config/blandAIConfig";
 
-// Update the suspects array to include voice_id
+// Update the suspects array
 const suspects = [
   { 
     name: "Miss Scarlet", 
     color: "scarlet", 
     image: "images/scarlet.png", 
-    id: "83b317c5-76da-4ff0-a09b-fc0bf7f49a88",
-    voice_id: "17e8f694-d230-4b64-b040-6108088d9e6c" 
+    id: getPathwayId("scarlet") || "",
+    voice_id: getVoiceId("scarlet"),
+    characterInstruction: getCharacterInstruction("scarlet")
   },
   { 
     name: "Colonel Mustard", 
     color: "mustard", 
     image: "images/mustard.png", 
-    id: "a3831d2e-b505-4d11-a62d-8521a370e217",
-    voice_id: "bac6643e-4b78-44c0-a006-2b9ff21dba44" 
+    id: getPathwayId("mustard") || "",
+    voice_id: getVoiceId("mustard"),
+    characterInstruction: getCharacterInstruction("mustard")
   },
   { 
     name: "Mrs. White", 
     color: "white", 
     image: "images/white.png", 
-    id: "63cd4260-ff8c-4a45-81d9-49e201e26883",
-    voice_id: "17a0eab8-d7d5-4304-bb41-7a7b6bda96d3" 
+    id: getPathwayId("white") || "",
+    voice_id: getVoiceId("white"),
+    characterInstruction: getCharacterInstruction("white")
   },
   { 
     name: "Mr. Green", 
     color: "green", 
     image: "images/green.png", 
-    id: "1bdd8faf-4a71-4868-a903-722f2b9d444b",
-    voice_id: "923ef241-cffc-4b6d-a59a-9c3ec3614d53" 
+    id: getPathwayId("green") || "",
+    voice_id: getVoiceId("green"),
+    characterInstruction: getCharacterInstruction("green")
   },
   { 
     name: "Mrs. Peacock", 
     color: "peacock", 
     image: "images/peacock.png", 
-    id: "775bea2a-e3fd-481e-9607-34283162716d",
-    voice_id: "fc585787-f5a8-4c3d-a16f-759a895c114a" 
+    id: getPathwayId("peacock") || "",
+    voice_id: getVoiceId("peacock"),
+    characterInstruction: getCharacterInstruction("peacock")
   },
   { 
     name: "Professor Plum", 
     color: "plum", 
     image: "images/plum.png", 
-    id: "17a7cbad-2445-4bd3-8342-daf3748ed670",
-    voice_id: "a4525de6-7c12-4df8-a1cb-90651de9323d" 
+    id: getPathwayId("plum") || "",
+    voice_id: getVoiceId("plum"),
+    characterInstruction: getCharacterInstruction("plum")
   },
 ];
 

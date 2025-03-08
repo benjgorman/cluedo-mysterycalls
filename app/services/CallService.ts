@@ -6,10 +6,11 @@ const US_BASE_URL = "https://us.api.bland.ai/v1/calls";
 // Types
 export interface Suspect {
   name: string;
-  id: string;
+  id?: string;  // Now optional
   color?: string;
   image?: string;
   voice_id?: string;
+  characterInstruction?: string;
 }
 
 export interface CallLogEntry {
@@ -31,24 +32,50 @@ interface CallResponse {
   error?: string;
 }
 
-// Initiate a call to a suspect
+// Modify initiateSuspectCall to handle both pathway and non-pathway scenarios
+
 export async function initiateSuspectCall(
   phoneNumber: string, 
   suspect: Suspect
 ): Promise<CallResponse> {
   try {
+    // Base call options
+    const callOptions: any = {
+      phone_number: phoneNumber,
+      voice: suspect.voice_id
+    };
+    
+    // Check if we're using a pathway or character instruction
+    if (suspect.id) {
+      // Using pathway
+      callOptions.task = `Call from ${suspect.name}`;
+      callOptions.pathway_id = suspect.id;
+    } else {
+      // Using character instruction
+      callOptions.task = suspect.characterInstruction;
+      callOptions.first_message = `Hello, this is ${suspect.name}. I understand you're investigating what happened to Mr. Black?`;
+      
+      // Add conversation design for non-pathway calls
+      callOptions.conversation_design = {
+        agent_greeting: `Hello, this is ${suspect.name}. I understand you're investigating what happened to Mr. Black?`,
+        agent_closing: "I really must go now, goodbye.",
+        behavior: {
+          timeout_seconds: 20,
+          termination_conditions: [
+            "MENTION_GOODBYE",
+            "MENTION_HANGING_UP"
+          ]
+        }
+      };
+    }
+
     const options = {
       method: "POST",
       headers: {
         Authorization: API_KEY,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        phone_number: phoneNumber,
-        task: `Call from ${suspect.name}`,
-        pathway_id: suspect.id,
-        voice: suspect.voice_id
-      }),
+      body: JSON.stringify(callOptions),
     };
 
     const response = await fetch(US_BASE_URL, options);

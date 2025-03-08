@@ -1,4 +1,3 @@
-
 # 🕵️‍♀️ Cluedo Mystery Calls 🔍
 
 > *"The game is afoot!"* - Call suspects, solve the murder, catch the killer!
@@ -53,6 +52,12 @@ npm install
 echo "VITE_BLAND_API_KEY=your_api_key_here" > .env
 ```
 
+### Environment Setup
+
+1. Copy `.env.example` to `.env`
+2. Add your Bland AI API key to `VITE_BLAND_AI_API_KEY`
+3. If you're using your own Bland AI pathways, set `VITE_USE_PERSONAL_PATHWAYS=true`
+
 ### 🎮 Running the Game
 
 ```bash
@@ -97,6 +102,14 @@ Your detective agency will open at `http://localhost:5173` 🕵️‍♂️
   app.css            # Styling
   /images            # Character portraits
 ```
+
+## Character AI Configuration
+
+This game works in two modes:
+- **Pathway Mode**: Uses pre-configured Bland AI pathways (requires specific pathway IDs)
+- **Instruction Mode**: Uses character descriptions to guide the AI (works for everyone)
+
+If you're cloning this repo, the game will automatically use Instruction Mode.
 
 ## ⚠️ Disclaimer
 
