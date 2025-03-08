@@ -1,0 +1,877 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    background-color: white;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    html, body {
+      background-color: #0d1117;
+      color-scheme: dark;
+    }
+  }
+}
+
+@layer components {
+  /* Custom Cluedo Mystery Calls styles with classic theme */
+  body {
+    background-color: #3a291a !important;
+    color: #d4b483;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh !important; /* Changed from fixed height to min-height 100vh */
+    height: auto !important; /* Override any fixed height */
+    margin: 0;
+    text-align: center;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 2 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23583e23' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+    background-attachment: fixed !important;
+    background-repeat: repeat !important; /* Ensure pattern repeats */
+    padding: 2rem 0;
+    overflow-y: auto;
+  }
+
+  .container {
+    background: rgba(70, 50, 30, 0.93) !important; /* Lightened from rgba(60, 40, 20, 0.95) */
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0px 0px 15px rgba(212, 180, 131, 0.3); /* Subtle gold glow */
+    text-align: center;
+    width: 500px;
+    border: 1px solid #d4b483; /* Antique gold border */
+  }
+
+  input[type="text"], input[type="password"] {
+    padding: 0.5rem;
+    width: 80%;
+    margin-bottom: 1.25rem;
+    border-radius: 0.25rem;
+    border: 1px solid #d4b483; /* Antique gold border */
+    background-color: #f5e8d5; /* Parchment color */
+    text-align: center;
+    font-size: 1.125rem;
+    color: #3c2814; /* Dark brown */
+    height: 45px; /* Fixed height for consistency */
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  input[type="password"] {
+    font-size: 1.125rem;
+    letter-spacing: 0.1em; /* Better spacing for dots */
+  }
+
+  input[type="password"]::placeholder, input[type="text"]::placeholder {
+    color: #3c2814;
+    opacity: 0.7;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .phone-toggle-btn {
+    position: absolute;
+    right: 15%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #3c2814;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    margin-bottom: 1.25rem; /* Match the input's margin */
+    padding: 0.5rem;
+  }
+
+  .phone-toggle-btn:hover {
+    opacity: 1;
+  }
+
+  .phone-input-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+
+  h1 {
+    margin-bottom: 0.5rem;
+    font-weight: 900;
+    color: #f5e8d5; /* Parchment color */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    letter-spacing: 1px;
+    font-size: 2.5rem;
+  }
+
+  p {
+    font-size: 1rem;
+    margin-bottom: 1.25rem;
+    color: #eacda3; /* Light gold */
+  }
+
+  .suspects {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .suspect-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    min-height: 120px;
+  }
+
+  .suspect-container img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #d4b483; /* Antique gold */
+    box-shadow: 0px 0px 5px rgba(212, 180, 131, 0.5);
+  }
+
+  button.suspect {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid rgba(212, 180, 131, 0.5);
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+    min-height: 50px;
+  }
+
+  /* Classic colors with vintage feel */
+  .scarlet { background-color: #9e2b25; color: white; }
+  .mustard { background-color: #cca43b; color: #3c2814; }
+  .white { background-color: #f5e8d5; color: #3c2814; }
+  .green { background-color: #2e5339; color: white; }
+  .peacock { background-color: #3a6ea5; color: white; }
+  .plum { background-color: #6b4e71; color: white; }
+
+  button.suspect:hover {
+    opacity: 0.9;
+    box-shadow: 0px 0px 8px rgba(212, 180, 131, 0.7);
+  }
+
+  #response {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: #e8b973; /* Light gold */
+    font-style: italic;
+  }
+
+  /* Add these new styles at the end of your @layer components section */
+
+  /* Enhanced active caller styles */
+  .suspect-container.active {
+    transform: scale(1.35); /* Increased from 1.15 to 1.35 */
+    transition: transform 0.5s ease-in-out;
+    z-index: 10;
+    position: relative; /* Ensure z-index works properly */
+  }
+
+  .suspect-container.active img {
+    width: 100px; /* Increased from 90px to 100px */
+    height: 100px; /* Increased from 90px to 100px */
+    box-shadow: 0px 0px 20px rgba(255, 220, 160, 0.9); /* Brighter glow */
+    animation: pulse 1.2s infinite alternate; /* Slightly faster animation */
+  }
+
+  .suspect-container.active button.suspect {
+    font-weight: bold;
+    box-shadow: 0px 0px 15px rgba(255, 220, 160, 0.8); /* Brighter glow */
+    transform: translateY(5px); /* Push the button down slightly */
+  }
+
+  /* Enhanced pulse animation */
+  @keyframes pulse {
+    0% {
+      border-color: #d4b483;
+      box-shadow: 0px 0px 15px rgba(212, 180, 131, 0.5);
+      transform: scale(1);
+    }
+    100% {
+      border-color: #f5e8d5;
+      box-shadow: 0px 0px 25px rgba(255, 220, 160, 0.95); /* Brighter and larger glow */
+      transform: scale(1.05); /* Subtle pulsing effect */
+    }
+  }
+
+  /* Call log styling */
+  .call-log {
+    background: rgba(44, 29, 14, 0.8);
+    border: 1px solid #d4b483;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    margin: 0.75rem; /* Added horizontal margin */
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .call-log table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .call-log th {
+    text-align: left;
+    padding: 0.5rem 0.25rem;
+    border-bottom: 1px solid #d4b483;
+  }
+
+  .call-log td {
+    padding: 0.25rem;
+  }
+
+  .call-log tr:hover {
+    background-color: rgba(212, 180, 131, 0.1);
+  }
+
+  /* Custom scrollbar for the call log */
+  .call-log::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .call-log::-webkit-scrollbar-track {
+    background: rgba(60, 40, 20, 0.5);
+  }
+
+  .call-log::-webkit-scrollbar-thumb {
+    background: #d4b483;
+    border-radius: 3px;
+  }
+
+  /* Phone number toggle button */
+  .relative {
+    position: relative;
+  }
+
+  /* Case file styling - add this to your app.css file */
+  .case-file {
+    background: rgba(70, 50, 30, 0.93) !important; /* Lightened from rgba(60, 40, 20, 0.95) */
+    border-radius: 0.5rem;
+    box-shadow: 0px 0px 15px rgba(212, 180, 131, 0.3); /* Match container shadow */
+    border: 1px solid #d4b483; /* Match container border */
+    display: flex;
+    flex-direction: column;
+    width: 500px; /* Same width as the call panel */
+    overflow: hidden; /* Keep content inside rounded corners */
+  }
+
+  .tabs {
+    display: flex;
+    background: rgba(60, 45, 30, 0.85) !important; /* Lightened from rgba(50, 35, 20, 0.9) */
+    overflow: hidden;
+    border-bottom: 1px solid rgba(212, 180, 131, 0.3);
+  }
+
+  .tab-btn {
+    background: transparent;
+    color: #eacda3; /* Light gold color */
+    border: none;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    padding: 0.75rem 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+
+  .tab-btn:hover {
+    background: rgba(70, 50, 30, 0.8);
+  }
+
+  .tab-btn.active-tab {
+    background: rgba(80, 60, 40, 0.8) !important; /* Lightened from rgba(70, 50, 30, 0.8) */
+    color: #f5e8d5; /* Parchment color */
+    border-bottom: 2px solid #d4b483; /* Antique gold border */
+  }
+
+  .case-content {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex: 1;
+    max-height: 600px;
+    background: rgba(45, 40, 45, 0.65) !important; /* Lightened from rgba(30,30,35,0.7) */
+  }
+
+  .case-content h2 {
+    color: #f5e8d5;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+
+  .case-content h3 {
+    color: #eacda3;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+
+  .case-content p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    text-align: left;
+    color: #e0c090 !important; /* Slightly darker than #eacda3 */
+  }
+
+  /* Style scrollbars for the case file */
+  .case-content::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .case-content::-webkit-scrollbar-track {
+    background: rgba(60, 40, 20, 0.5);
+  }
+
+  .case-content::-webkit-scrollbar-thumb {
+    background: #d4b483;
+    border-radius: 3px;
+  }
+
+  /* Paper clip effect for images */
+  .case-photo, .mansion-photo {
+    position: relative;
+    margin: 1rem 0;
+    display: inline-block;
+  }
+
+  .case-photo img, .mansion-photo img {
+    border: 2px solid #3c2814;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    max-width: 100%;
+  }
+
+  .case-photo::before, .mansion-photo::before {
+    content: "📎";
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    font-size: 24px;
+    transform: rotate(-10deg);
+    z-index: 10;
+  }
+
+  /* Room and weapon item styling */
+  .room-item, .weapon-item {
+    background: rgba(55, 45, 30, 0.65) !important; /* Lightened from rgba(40, 30, 15, 0.7) */
+    border: 1px solid rgba(212, 180, 131, 0.2);
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    border-radius: 0.25rem;
+  }
+
+  .room-item h4, .weapon-item h4 {
+    color: #f5e8d5;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+  }
+
+  .weapon-icon {
+    font-size: 1.75rem;
+    margin-right: 0.75rem;
+  }
+
+  /* Coroner's report */
+  .coroner-report {
+    background: rgba(100, 40, 40, 0.1);
+    border: 1px solid rgba(150, 60, 60, 0.3);
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 0.25rem;
+  }
+
+  /* Coroner's report - Updated styling */
+  .coroner-report, 
+  .p-4.bg-\[rgba\(255\,66\,66\,0\.1\)\].border.border-\[rgba\(255\,66\,66\,0\.2\)\].rounded {
+    background: rgba(90, 30, 30, 0.25); /* Darker red background for better contrast */
+    border: 1px solid rgba(180, 70, 70, 0.4); /* More visible border */
+    padding: 1.25rem;
+    margin: 1.5rem 0.75rem; /* Added horizontal margin */
+    border-radius: 0.25rem;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  }
+
+  /* Coroner's report title - Better contrast */
+  .text-\[#ff4242\].font-bold.mb-1, 
+  .coroner-report h3 {
+    color: #ffb0b0; /* Lighter red for better contrast on dark background */
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3); /* Text shadow for readability */
+  }
+
+  /* Detective notes call log - Better margins and contrast */
+  .call-log {
+    background: rgba(44, 29, 14, 0.8);
+    border: 1px solid #d4b483;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    margin: 0.75rem; /* Added horizontal margin */
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  /* Call entry styling - Better contrast */
+  .call-entry {
+    background: rgba(60, 45, 30, 0.85) !important; /* Lightened from rgba(50, 35, 20, 0.85) */
+    border: 1px solid rgba(212, 180, 131, 0.4) !important;
+    margin-bottom: 1rem !important;
+    padding: 1rem !important;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Call summary title - Better contrast */
+  .call-summary h4 {
+    color: #f5e8d5 !important; /* Lighter color for better contrast */
+    font-weight: 600;
+    border-bottom: 1px solid rgba(212, 180, 131, 0.3);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.5px;
+  }
+
+  /* Call summary content - Better contrast */
+  .call-summary p {
+    color: #eacda3 !important;
+    line-height: 1.6;
+    font-size: 0.9rem;
+  }
+
+  /* Empty notes styling - Better contrast */
+  .empty-notes {
+    background: rgba(60, 45, 30, 0.6) !important; /* Lightened from rgba(50, 35, 20, 0.6) */
+    border: 1px solid rgba(212, 180, 131, 0.3) !important;
+    margin: 0.75rem;
+    padding: 1.5rem !important;
+  }
+
+  /* Call status animation for pending summaries */
+  .animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  /* Add styles to dim non-active suspects during an active call */
+
+  /* Overlay for the entire suspects grid during active call */
+  .suspects.has-active-call {
+    position: relative;
+  }
+
+  .suspects.has-active-call::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.35); /* Dark overlay */
+    pointer-events: none; /* Allow clicks to pass through */
+    z-index: 5;
+    border-radius: 0.25rem;
+  }
+
+  /* Make non-active suspects appear dimmer during a call */
+  .suspects.has-active-call .suspect-container:not(.active) {
+    opacity: 0.4; /* Make inactive suspects fade out */
+    filter: grayscale(70%); /* Desaturate colors */
+    transition: opacity 0.5s ease-in-out, filter 0.5s ease-in-out;
+  }
+
+  /* Enhance the active container to stand out from the overlay */
+  .suspects.has-active-call .suspect-container.active {
+    z-index: 15; /* Higher than the overlay */
+    filter: drop-shadow(0 0 15px rgba(255, 220, 160, 0.9)); /* Outer glow effect */
+  }
+
+  /* Add a spotlight effect to the active suspect */
+  .suspects.has-active-call .suspect-container.active::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    background: radial-gradient(
+      circle at center,
+      rgba(255, 220, 160, 0.15) 0%,
+      transparent 70%
+    );
+    z-index: -1;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  /* Chief of Police direct line styling */
+  .chief-line {
+    background: rgba(55, 40, 25, 0.93) !important; /* Lightened from rgba(40, 30, 15, 0.95) */
+    border: 1px solid #d4b483;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    padding: 2.5rem !important; /* Increased padding */
+    width: 100% !important; /* Match container width exactly */
+    max-width: 1025px !important; /* Match the max-width of the container */
+    margin: 0 auto;
+    box-sizing: border-box !important; /* Ensure padding is included in width */
+  }
+
+  .chief-header {
+    background: rgba(40, 32, 20, 0.6) !important; /* Lightened from rgba(30, 22, 10, 0.6) */
+    margin: -2.5rem -2.5rem 2rem -2.5rem !important; /* Match new padding */
+    padding: 1.5rem 2.5rem !important;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    border-bottom: 1px solid #d4b483; /* More visible border */
+  }
+
+  .chief-badge {
+    background: rgba(212, 180, 131, 0.2);
+    border-radius: 50%;
+    width: 60px; /* Increased size */
+    height: 60px; /* Increased size */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(212, 180, 131, 0.5);
+    font-size: 2.5rem; /* Larger emoji */
+    margin-right: 1.25rem !important;
+  }
+
+  .current-time {
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+    font-size: 2rem !important; /* Much larger clock */
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    color: #f5e8d5 !important; /* Brighter color for better contrast */
+  }
+
+  .deadline {
+    color: #ff8080 !important; /* Brighter red for better contrast */
+    font-size: 1.1rem !important; /* Larger text */
+    margin-top: 0.5rem;
+    font-weight: 500;
+  }
+
+  .chief-content {
+    padding: 1rem 0.5rem !important;
+    display: flex;
+    gap: 2rem !important; /* Increased gap between columns */
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .chief-info {
+    width: 1/2;
+    text-align: left;
+    padding-right: 2rem !important;
+    border-right: 1px solid rgba(212, 180, 131, 0.4) !important; /* More visible divider */
+  }
+
+  .chief-info p {
+    color: #e0c090 !important; /* Slightly darker than #eacda3 */
+    font-size: 1.05rem !important; /* Slightly larger text */
+    line-height: 1.6 !important;
+    margin-bottom: 1.25rem !important;
+  }
+
+  .chief-info .text-\[#f5e8d5\] {
+    color: #f5e8d5 !important; /* Ensure good contrast */
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+  }
+
+  .form-group {
+    margin-bottom: 2rem !important; /* More space between form elements */
+  }
+
+  .accusation-form label {
+    color: #f5e8d5 !important; 
+    margin-bottom: 0.75rem !important;
+    font-size: 1.1rem !important;
+    display: block;
+  }
+
+  .accusation-form select {
+    background-color: rgba(26, 26, 26, 0.8);
+    color: #f5e8d5 !important; /* Brighter text for better contrast */
+    border: 1px solid #d4b483;
+    font-family: 'Montserrat', sans-serif;
+    padding: 1rem !important; /* Larger padding for better touch targets */
+    font-size: 1.1rem !important; /* Larger text */
+    height: 3.5rem; /* Fixed height for consistency */
+  }
+
+  .accusation-form button {
+    padding: 1.25rem !important; /* Larger padding */
+    font-size: 1.2rem !important; /* Larger text */
+    letter-spacing: 1px;
+    margin-top: 1rem !important;
+    transition: all 0.3s ease;
+  }
+
+  .chief-info div[class*="mt-3 p-3 rounded"] {
+    padding: 1.25rem !important;
+    margin-top: 1.5rem !important;
+    font-size: 1.1rem !important;
+  }
+
+  .accusation-form {
+    background: rgba(50, 40, 25, 0.4) !important; /* Lightened from rgba(40, 30, 15, 0.4) */
+    border: 1px solid rgba(212, 180, 131, 0.3);
+    border-radius: 0.5rem;
+    padding: 1.5rem !important;
+  }
+
+  /* Improve button hover state */
+  .accusation-form button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 66, 66, 0.3);
+    transition: all 0.2s ease;
+  }
+
+  .accusation-form button:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(255, 66, 66, 0.3);
+  }
+
+  /* Update the spacing between top and bottom panes */
+  .flex.flex-col.w-full.max-w-\[1100px\].px-4.gap-5 {
+    gap: 2.5rem !important; /* Increase from gap-5 (1.25rem) to 2.5rem */
+    width: 100%;
+    max-width: 1025px !important;
+    margin: 0 auto;
+    gap: 2rem !important;
+    padding-left: 0 !important; /* Remove horizontal padding */
+    padding-right: 0 !important; /* Remove horizontal padding */
+  }
+
+  /* Add more space in the chief-content area */
+  .chief-content {
+    padding: 0.5rem 0.25rem !important; /* Add some subtle padding */
+  }
+
+  /* Adjust spacing in the accusation form */
+  .form-group {
+    margin-bottom: 1.5rem !important; /* Increase from 1rem to 1.5rem */
+  }
+
+  /* Add this to your CSS for the Cluedo logo styling */
+  .cluedo-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 3.5rem; /* Increased from previous size */
+    color: #f5e8d5;
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.6);
+    letter-spacing: 3px;
+    margin-bottom: 1.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: baseline; /* Better alignment for different sized characters */
+    line-height: 1;
+    transform: perspective(500px) rotateX(5deg); /* Subtle 3D effect */
+    padding: 0.5rem 0;
+  }
+
+  .cluedo-logo .letter-u {
+    position: relative;
+    display: inline-block;
+    font-family: 'Times New Roman', serif;
+    font-style: italic;
+    font-weight: bold;
+    color: #ff3333; /* Brighter red than before */
+    font-size: 4.2rem; /* Even larger than the rest */
+    margin: 0 -4px;
+    transform: rotate(-8deg) translateY(-5px); /* More dramatic rotation */
+    text-shadow: 
+      3px 3px 6px rgba(0, 0, 0, 0.7),
+      0 0 15px rgba(255, 60, 60, 0.4); /* Glowing effect */
+    transition: all 0.3s ease;
+  }
+
+  .cluedo-logo .letter-u::after {
+    content: '';
+    position: absolute;
+    bottom: 14px;
+    left: 8px;
+    right: 8px;
+    height: 4px;
+    background: linear-gradient(to right, #ff3333, #ff6060);
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(255, 0, 0, 0.4);
+  }
+
+  .logo-subtitle {
+    font-size: 1.4rem;
+    color: #d4b483;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-top: 5px;
+    margin-left: 15px !important; /* Force more space */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  .cluedo-logo:hover .letter-u {
+    transform: rotate(-12deg) translateY(-5px) scale(1.05);
+    text-shadow: 
+      3px 3px 10px rgba(0, 0, 0, 0.8),
+      0 0 20px rgba(255, 60, 60, 0.6);
+  }
+
+  /* Privacy footer styling */
+  .privacy-footer {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.5;
+  }
+
+  .privacy-footer a {
+    transition: all 0.2s ease;
+  }
+
+  .privacy-footer a:hover {
+    text-decoration-thickness: 2px;
+  }
+
+  .privacy-content {
+    backdrop-filter: blur(2px);
+  }
+
+  .attribution {
+    font-size: 0.7rem;
+  }
+
+  /* Fix the main app container */
+  #root, .bg-\[#0d1117\].text-\[#58a6ff\].font-orbitron.flex.flex-col.justify-center.items-center.m-0.text-center {
+    display: flex;
+    flex-direction: column;
+    min-height: 770px;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    height: auto !important; /* Override fixed height */
+    justify-content: flex-start;
+    padding-top: 1rem;
+  }
+
+  /* Fix the main content container width */
+  .flex.flex-col.w-full.max-w-\[1100px\].px-4.gap-5 {
+    width: 100%;
+    height: 100%;
+    max-width: 1025px !important;
+    margin: 0 auto;
+    gap: 2rem !important;
+    padding-left: 0 !important; /* Remove horizontal padding */
+    padding-right: 0 !important; /* Remove horizontal padding */
+  }
+
+  /* Fix top row layout */
+  .flex.gap-5.w-full {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1025px !important;
+  }
+
+  /* Fix the panels to have equal width */
+  .container, .case-file {
+    width: calc(50% - 0.625rem) !important;
+    flex: 1;
+  }
+
+  /* Ensure chief inspector panel matches width */
+  .chief-line {
+    width: 100%
+  }
+
+  /* Fix footer width */
+  .privacy-footer {
+    width: 100%;
+    max-width: 1025px;
+    margin-top: 2rem;
+  }
+
+  /* Add responsive adjustments */
+  @media (max-width: 768px) {
+    .flex.gap-5.w-full {
+      flex-direction: column;
+    }
+    
+    .container, .case-file {
+      width: 100% !important;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+/* Make sure HTML also has full height */
+html {
+  height: 100%;
+  min-height: 100vh;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Fix the main app container */
+#root, 
+.bg-\[#0d1117\].text-\[#58a6ff\].font-orbitron.flex.flex-col.justify-center.items-center.h-screen.m-0.text-center {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh !important;
+  width: 100%;
+  align-items: center;
+  height: auto !important; /* Override fixed height */
+  justify-content: flex-start;
+  padding-top: 1rem;
+  overflow: visible; /* Allow content to determine height */
+}
+
+/* Ensure the content wrapper takes full available height */
+.flex.flex-col.w-full.max-w-\[1100px\].px-4.gap-5 {
+  width: 100%;
+  min-height: calc(100vh - 8rem); /* Account for padding */
+  max-width: 1025px !important;
+  margin: 0 auto;
+  gap: 2rem !important;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Add spacing at the bottom of the page */
+.privacy-footer {
+  margin-top: auto; /* Push to bottom of container */
+  padding-bottom: 3rem; /* Add space at bottom */
+  width: 100%;
+  max-width: 1025px;
+}
+
+/* Adjust for very tall screens */
+@media (min-height: 1200px) {
+  .flex.flex-col.w-full.max-w-\[1100px\].px-4.gap-5 {
+    justify-content: center; /* Center content on very tall screens */
+  }
+}
