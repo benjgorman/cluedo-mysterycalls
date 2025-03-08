@@ -10,6 +10,8 @@ A modern twist on the classic Cluedo (Clue) board game that lets you **actually 
 
 *Who killed Mr. Black in the Mansion with what weapon? Only your detective skills can solve this mystery!*
 
+This was built during the BU C&I Research Week where students were working on Bland.AI projects. They had asked in previous hackathons for staff to have a go - so I did! I wanted to see how much I could build in a few nights with github co-pilot - quite a bit!
+
 ## ✨ Features
 
 - 📱 **Real phone calls** to suspects using Bland.AI's voice technology
@@ -33,7 +35,7 @@ A modern twist on the classic Cluedo (Clue) board game that lets you **actually 
 
 - Node.js (v16+)
 - npm or yarn
-- A [Bland.AI](https://www.bland.ai) account and API key
+- A [Bland.AI](https://www.bland.ai) account and API key (and some credits)
 - A verified phone number to receive calls
 
 ### 🔧 Installation
@@ -71,7 +73,7 @@ Your detective agency will open at `http://localhost:5173` 🕵️‍♂️
 ### 🔑 Setting Up Bland.AI
 
 1. Create an account at [Bland.AI](https://www.bland.ai)
-2. Add credit to your account (calls cost ~$0.10-0.20 per minute)
+2. Add credit to your account - bland does give you some free to start with (calls cost ~$0.10-0.20 per minute)
 3. Get your API key from your account dashboard
 4. Create scenarios in Bland for each suspect (or use use instruction mode - see below)
 5. Update the pathway_ids in the `blandAIConfig` file to match your Bland pathways for each suspect.
@@ -80,7 +82,7 @@ Your detective agency will open at `http://localhost:5173` 🕵️‍♂️
 
 This game works in two modes:
 - **Pathway Mode**: Uses pre-configured Bland AI pathways (requires specific pathway IDs)
-- **Instruction Mode**: Uses character descriptions to guide the AI (works for everyone - but will be less fun!
+- **Instruction Mode**: Uses character descriptions to guide the AI (works for everyone - but will be less fun!)
 
 If you're cloning this repo, the game will automatically use Instruction Mode.
 
