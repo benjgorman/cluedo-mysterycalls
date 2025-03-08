@@ -114,13 +114,28 @@ If you're cloning this repo, the game will automatically use Instruction Mode.
   /images            # Character portraits
 ```
 
-## ⚠️ Disclaimer
+## 🎨 Asset Creation & Story Development
+
+- 🖼️ All character portraits and game images were generated using **ChatGPT's DALL-E** integration
+- 📜 The case backstory, character profiles, and murder mystery details were co-written by me and **ChatGPT**
+- 🔍 The character dialogue and personality traits were crafted to create an immersive detective experience
+- 🏰 The mansion layout and room descriptions draw inspiration from the classic Cluedo/Clue board game
+
+## 🤖 AI-Assisted Development
+
+- 💻 Code development was assisted by **GitHub Copilot with Claude 3.7 Sonnet Thinking**
+- 🧩 Many features, components, and styling solutions were co-created with AI assistance
+- 🔄 Refactoring and optimizations were guided by AI suggestions
+- 🐛 Debugging help and best practice recommendations came from the AI partnership
+- 📚 This project demonstrates the potential of human-AI collaboration in game development
+
+This project showcases how AI tools can enhance both the technical implementation and creative aspects of game development - making sophisticated projects more accessible to individual creators.
+
+## ⚠️ 📝 Disclaimer
 
 This is an educational project demonstrating AI voice technology. Your phone number is only used to connect calls via Bland.AI and is not stored or used for any other purpose. All call data is processed by Bland.AI according to their privacy policy.
 
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+The Cluedo/Clue name, characters, and concept are the intellectual property of Hasbro, Inc. All rights reserved. This project uses these elements for educational and demonstration purposes only, with no commercial intent. This is an unofficial fan project not affiliated with or endorsed by Hasbro.
 
 ---
 
