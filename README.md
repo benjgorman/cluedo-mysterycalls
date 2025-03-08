@@ -48,8 +48,9 @@ cd cluedo-mystery-calls
 # Install dependencies
 npm install
 
-# Create a .env file for your Bland.AI API key
-echo "VITE_BLAND_API_KEY=your_api_key_here" > .env
+# Rename the .env.example file to .env and update your API Key
+
+"VITE_BLAND_API_KEY=your_api_key_here" > .env
 ```
 
 ### Environment Setup
@@ -72,8 +73,16 @@ Your detective agency will open at `http://localhost:5173` 🕵️‍♂️
 1. Create an account at [Bland.AI](https://www.bland.ai)
 2. Add credit to your account (calls cost ~$0.10-0.20 per minute)
 3. Get your API key from your account dashboard
-4. Create scenarios in Bland for each suspect (or use our templates)
-5. Update the pathway_ids in the `suspects` array to match your Bland suspects
+4. Create scenarios in Bland for each suspect (or use use instruction mode - see below)
+5. Update the pathway_ids in the `blandAIConfig` file to match your Bland pathways for each suspect.
+
+## Character AI Configuration
+
+This game works in two modes:
+- **Pathway Mode**: Uses pre-configured Bland AI pathways (requires specific pathway IDs)
+- **Instruction Mode**: Uses character descriptions to guide the AI (works for everyone - but will be less fun!
+
+If you're cloning this repo, the game will automatically use Instruction Mode.
 
 ## 🎲 How to Play
 
@@ -102,14 +111,6 @@ Your detective agency will open at `http://localhost:5173` 🕵️‍♂️
   app.css            # Styling
   /images            # Character portraits
 ```
-
-## Character AI Configuration
-
-This game works in two modes:
-- **Pathway Mode**: Uses pre-configured Bland AI pathways (requires specific pathway IDs)
-- **Instruction Mode**: Uses character descriptions to guide the AI (works for everyone)
-
-If you're cloning this repo, the game will automatically use Instruction Mode.
 
 ## ⚠️ Disclaimer
 
