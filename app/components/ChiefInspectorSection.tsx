@@ -46,8 +46,17 @@ const ChiefInspectorSection: React.FC<ChiefInspectorSectionProps> = ({
     <div className="chief-line bg-[rgba(20,20,20,0.9)] p-5 rounded-lg shadow-[0px_0px_15px_rgba(88,166,255,0.4)] w-full flex flex-col">
       <div className="chief-header flex justify-between items-center mb-4 border-b border-[rgba(212,180,131,0.3)] pb-3">
         <div className="flex items-center">
-          <div className="chief-badge text-2xl mr-3">👮‍♂️</div>
-          <h2 className="text-[#f5e8d5] text-xl font-bold">DIRECT LINE TO CHIEF INSPECTOR</h2>
+          <div className={`chief-badge ${chiefCallActive ? "animate-pulse" : ""}`}>
+            <img 
+              src="images/gray.png" 
+              alt="Chief Inspector Gray" 
+              className={`chief-inspector-image ${chiefCallActive ? "border-[#3fad6c]" : "border-[#d4b483]"}`}
+            />
+          </div>
+          <h2 className="text-[#f5e8d5] text-xl font-bold">
+            DIRECT LINE TO CHIEF INSPECTOR
+            {chiefCallActive && <span className="ml-2 text-[#3fad6c] animate-pulse">• LIVE</span>}
+          </h2>
         </div>
         <div className="time-info text-right">
           <div className="current-time text-[#eacda3] text-lg font-bold">{formattedTime}</div>

@@ -116,6 +116,14 @@
     color: #eacda3; /* Light gold */
   }
 
+  .crime-scene-report {
+    padding: 1em;
+  }
+
+  .suspect-item {
+    padding-left: 1em;
+  }
+
   .suspects {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -826,6 +834,22 @@
       width: 100% !important;
       margin-bottom: 1rem;
     }
+  }
+
+  .chief-inspector-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid #d4b483;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    object-fit: cover;
+  }
+  
+  .chief-badge {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    margin-right: 0.75rem;
   }
 }
 

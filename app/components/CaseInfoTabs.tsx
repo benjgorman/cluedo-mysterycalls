@@ -67,7 +67,7 @@ const CaseInfoTabs: React.FC<CaseInfoTabsProps> = ({
               />
             </div>
             
-            <div className="p-4 bg-[rgba(40,40,45,0.5)] border border-[rgba(255,66,66,0.2)] rounded">
+            <div className="crime-scene-report p-4 bg-[rgba(40,40,45,0.5)] border border-[rgba(255,66,66,0.2)] rounded">
               <div className="ml-3">
                 <h3 className="text-[#f5e8d5] font-bold mb-2 flex items-center">
                   <span className="mr-2 text-lg">📋</span> Crime Scene Report
